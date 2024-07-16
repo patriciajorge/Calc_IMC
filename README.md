@@ -16,7 +16,7 @@ Este projeto em Python usa a biblioteca PySimpleGUI para criar uma calculadora d
 1. Execução:
 
 - Execute o script calculo_imc.py utilizando Python:
-python calculo_imc.py
+```python app.py```
 
 2. Instruções de Uso:
 
