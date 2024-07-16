@@ -10,7 +10,7 @@ Este projeto em Python usa a biblioteca PySimpleGUI para criar uma calculadora d
 - Python 3.x
 
 - Instale as dependências necessárias usando pip:
-pip install -r requirements.txt
+```pip install -r requirements.txt ```
 
 # Como Usar
 1. Execução:
