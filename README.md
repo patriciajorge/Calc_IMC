@@ -10,13 +10,13 @@ Este projeto em Python usa a biblioteca PySimpleGUI para criar uma calculadora d
 - Python 3.x
 
 - Instale as dependências necessárias usando pip:
-pip install -r requirements.txt
+```pip install -r requirements.txt ```
 
 # Como Usar
 1. Execução:
 
 - Execute o script calculo_imc.py utilizando Python:
-python calculo_imc.py
+```python app.py```
 
 2. Instruções de Uso:
 
