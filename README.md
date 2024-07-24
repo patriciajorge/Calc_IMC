@@ -8,6 +8,7 @@ Este projeto em Python usa a biblioteca PySimpleGUI para criar uma calculadora d
 
 # Requisitos
 - Python 3.x
+- ﻿PySimpleGUI 5.x
 
 - Instale as dependências necessárias usando pip:
 ```bash
