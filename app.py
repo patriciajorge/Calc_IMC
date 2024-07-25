@@ -1,59 +1,65 @@
 import PySimpleGUI as sg
 
-def calc(peso, altura):
-    imc = peso / (altura * altura)
-    return imc
+# calcular o imc
+def calculate_bmi(weight, height):
+    bmi = weight / (height * height)
+    return bmi
 
-def situacao_peso(imc):
-    if imc < 17:
-        return 'Muito abaixo do peso 😔', 'white', 'black'
-    elif 17 <= imc < 18.5:
-        return 'Abaixo do peso 😕', 'gray', 'black'
-    elif 18.5 <= imc < 25:
-        return 'Peso normal 😊', 'green', 'white'
-    elif 25 <= imc < 30:
-        return 'Acima do peso 😐', 'yellow', 'black'
-    elif 30 <= imc < 35:
-        return 'Obesidade I 😟', 'orange', 'black'
-    elif 35 <= imc < 40:
-        return 'Obesidade II (Severa) 😧', 'red', 'white'
+# Analisa o valor do IMC e define a categoria correspondente com as cores associadas
+def analyze_bmi_and_define_category_color(bmi):
+    if bmi < 17:
+        return 'Very underweight 😔', 'white', 'black'
+    elif 17 <= bmi < 18.5:
+        return 'Underweight 😕', 'gray', 'black'
+    elif 18.5 <= bmi < 25:
+        return 'Normal weight 😊', 'green', 'white'
+    elif 25 <= bmi < 30:
+        return 'Overweight 😐', 'yellow', 'black'
+    elif 30 <= bmi < 35:
+        return 'Obesity I 😟', 'orange', 'black'
+    elif 35 <= bmi < 40:
+        return 'Obesity II (Severe) 😧', 'red', 'white'
     else:
-        return 'Obesidade III (Mórbida) ☠', 'black', 'white'
+        return 'Obesity III (Morbid) ☠', 'black', 'white'
 
+# Cria a interface gráfica para calcular e exibir o IMC e a categoria de peso
 def interface():
     sg.theme('Dark Purple 6')
 
     layout = [
-        [sg.Text('Digite seu peso (kg)')],
-        [sg.Input(key='peso')],
-        [sg.Text('Digite sua altura (m)')],
-        [sg.Input(key='altura')],
-        [sg.Button(button_text='Calcular IMC')],
-        [sg.Text(key='imc', size=(20, 1), font=('Helvetica', 12, 'bold'))],
-        [sg.Text(key='situacao', size=(25, 1), font=('Helvetica', 12, 'bold'))]
+        [sg.Text('Enter your weight (kg)')],
+        [sg.Input(key='weight')],
+        [sg.Text('Enter your height (m)')],
+        [sg.Input(key='height')],
+        [sg.Button(button_text='Calculate BMI')],
+        [sg.Text(key='bmi', size=(20, 1), font=('Helvetica', 12, 'bold'))],
+        [sg.Text(key='category', size=(25, 1), font=('Helvetica', 12, 'bold'))]
     ]
-    window = sg.Window('Calculadora de IMC', layout=layout)
+    # Cria a janela com o layout definido
+    window = sg.Window('BMI Calculator', layout=layout)
 
     while True:
         event, values = window.read()
 
         if event == sg.WIN_CLOSED:
             break
-        elif event == 'Calcular IMC':
+        elif event == 'Calculate BMI':
             try:
-                peso = float(values['peso'])
-                altura = float(values['altura'])
-                if peso <= 0 or altura <= 0:
-                    sg.popup('Peso e altura devem ser valores positivos.', title='Erro')
+                weight = float(values['weight'])
+                height = float(values['height'])
+                if weight <= 0 or height <= 0:
+                    sg.popup('Weight and height must be positive values.', title='Error')
                     continue
+
+                # Calcula o IMC e obtém a categoria e as cores
+                bmi = calculate_bmi(weight, height)
+                category, background_color, text_color = analyze_bmi_and_define_category_color(bmi)
                 
-                imc = calc(peso, altura)
-                situacao, background_color, text_color = situacao_peso(imc)
-                
-                window['imc'].update(f'Seu IMC é de {imc:.2f}', text_color=text_color, background_color=background_color)
-                window['situacao'].update(situacao, text_color=text_color, background_color=background_color)
+                # Atualiza os textos na interface com o IMC e a categoria
+                window['bmi'].update(f'Your BMI is {bmi:.2f}', text_color=text_color, background_color=background_color)
+                window['category'].update(category, text_color=text_color, background_color=background_color)
             except ValueError:
-                sg.popup('Por favor, insira valores numéricos válidos.', title='Erro')
+                sg.popup('Please enter valid numeric values.', title='Error')
     window.close()
 
 interface()
